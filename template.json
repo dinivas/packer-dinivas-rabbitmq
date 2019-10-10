@@ -2,9 +2,9 @@
   "variables": {
     "instance_name": "packer-dinivas-rabbitmq",
     "ansible_roles_path": "galaxy_roles",
-    "flavor": "m1.small",
     "image_name": "Dinivas RabbitMQ Node",
-    "image_tags": "shephercloud",
+    "image_tags": "dinivas,rabbitmq",
+    "image_min_disk": "5",
     "image_visibility": "public"
   },
   "builders": [{
@@ -24,7 +24,10 @@
     ],
     "user": "{{user `ssh_user` }}",
     "playbook_file": "./playbook.yml",
+    "galaxy_file": "requirements.yml",
+    "roles_path": "{{user `ansible_roles_path` }}",
     "extra_arguments": [],
+    "groups": ["rabbitmq-nodes"],
     "host_alias": "{{user `instance_name`}}"
   }]
 }
